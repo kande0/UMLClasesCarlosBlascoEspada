@@ -1,26 +1,39 @@
 @startuml
 class Member{
+    e-mail : String
 }
 
 class BoardMember {
 }
 
 class Event {
+    date : Date
+    description : String
+    assign(l : Location) : void
 }
 
 class Conference {
+    max_attendees : Integer
 }
 
 class BoardMeeting {
 }
 
 class Location {
+    description : String
+    address : String
 }
 
 class Person {
+    name: String
 }
 
 class AAUOC {
+    newLocation(I: Location): void
+    newEvent(e : Event) : void
+    newPerson(p : Person) : void
+    informEvent(e : Event) : void
+    register(m : Member,e : Event) : void
 }
 
 Event <|-- Conference
@@ -33,9 +46,9 @@ AAUOC o-- Event
 AAUOC o-- Person
 AAUOC o-- Location
 
-Location -- Event
-Event -- Member
-BoardMeeting -- BoardMember
-Conference -- Person
+Location -- Event : isLocated In
+Event -- Member : attendsTo
+BoardMeeting -- BoardMember : attendsTo
+Conference -- Person : attendsTo
 
 @enduml
